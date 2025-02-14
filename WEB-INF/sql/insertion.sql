@@ -1,31 +1,35 @@
 \i creation.sql
 
-insert into utilisateur(pseudo,prenom,nom,email,mdp,d_inscription) values
-('natgame','Nathan','Marquis','nathan@mail','moi','14/02/2025'),
-('tyroine','Mathis','Lisiak','mathis@mail','moi','15/02/2025'),
-('bernard','Bernard','Bernard','bernard@mail','bernard','14/02/1990'),
-('Sonic','Sonic','TheHedgehog','sonic@mail','moi','14/02/2025'),
-('Bowser','Bowser','Koopa','bowser@mail','moi','14/02/2025'),
-('Crash','Crash','Bandicoot','nathan@mail','moi','14/02/2025');
+insert into utilisateurs(pseudo,prenom,nom,email,mdp,d_inscription) values
+('natgame','Nathan','Marquis','nathan@mail','moi','2025-02-14'),
+('tyroine','Mathis','Lisiak','mathis@mail','moi','2025-02-15'),
+('bernard','Bernard','Bernard','bernard@mail','bernard','1990-02-14'),
+('Sonic','Sonic','TheHedgehog','sonic@mail','moi','2025-02-14'),
+('Bowser','Bowser','Koopa','bowser@mail','moi','2025-02-14'),
+('Crash','Crash','Bandicoot','crash@mail','moi','2025-02-14');
 
-insert into fil(titre,d_creation,createur) values
-('Jeux vidéo','14/02/2025',(Select uno from utilisateur where nom = 'Marquis')),
-('Mariage de Mario','10/02/2025',(Select uno from utilisateur where nom = 'Bowser'));
+insert into fils(titre,d_creation,uno_createur) values
+('Jeux vidéo','2025-02-14',(Select uno from utilisateurs where nom = 'Marquis')),
+('Mariage de Mario','2025-02-10',(Select uno from utilisateurs where nom = 'Bowser'));
 
-insert into inscription(fno,uno) values
-((Select fno from fil where titre = 'Jeux vidéo'),(Select uno from utilisateur where nom = 'Lisiak')),
-((Select fno from fil where titre = 'Mariage de Mario'),(Select uno from utilisateur where nom = 'TheHedgehog')),
-((Select fno from fil where titre = 'Mariage de Mario'),(Select uno from utilisateur where nom = 'Marquis')),
-((Select fno from fil where titre = 'Mariage de Mario'),(Select uno from utilisateur where nom = 'Bandicoot'));
+insert into inscriptions(fno,uno) values
+((Select fno from fils where titre = 'Jeux vidéo'),(Select uno from utilisateurs where nom = 'Lisiak')),
+((Select fno from fils where titre = 'Jeux vidéo'),(Select uno from utilisateurs where nom = 'Marquis')),
+((Select fno from fils where titre = 'Mariage de Mario'),(Select uno from utilisateurs where nom = 'TheHedgehog')),
+((Select fno from fils where titre = 'Mariage de Mario'),(Select uno from utilisateurs where nom = 'Marquis')),
+((Select fno from fils where titre = 'Mariage de Mario'),(Select uno from utilisateurs where nom = 'Bandicoot'));
 
-insert into administration(fno,uno) values
-((Select fno from fil where titre = 'Jeux vidéo'),(Select uno from utilisateur where nom = 'Marquis')),
-((Select fno from fil where titre = 'Jeux vidéo'),(Select uno from utilisateur where nom = 'Lisiak')),
-((Select fno from fil where titre = 'Mariage de Mario'),(Select uno from utilisateur where nom = 'TheHedgehog'));
+insert into administrations(fno,uno) values
+((Select fno from fils where titre = 'Jeux vidéo'),(Select uno from utilisateurs where nom = 'Marquis')),
+((Select fno from fils where titre = 'Jeux vidéo'),(Select uno from utilisateurs where nom = 'Lisiak')),
+((Select fno from fils where titre = 'Mariage de Mario'),(Select uno from utilisateurs where nom = 'TheHedgehog'));
 
-insert into message(fno,uno,contenu,d_ecriture) values
-(1,1,'Bonjour','14/02/2025'),
-(1,2,'Ca va ?','14/02/2025'),
-(2,1,'Bonjour','18/02/2025'),
-(2,5,'Bon alors on fait quoi comme animation ? On peut kidnapper Peach ?','18/02/2025'),
-(2,4,'Non, laisse la vivre wsh','18/02/2025');
+insert into messages(fno,uno,contenu,d_ecriture) values
+(1,1,'Bonjour','2025-02-14'),
+(1,2,'Ca va ?','2025-02-14'),
+(2,1,'Bonjour','2025-02-18 18:00'),
+(2,5,'Bon alors on fait quoi comme animation ? On peut kidnapper Peach ?','2025-02-18 19:00');
+
+insert into messages(fno,uno,contenu,d_ecriture,mno_reponse) values
+(2,4,'Non, laisse la vivre wsh','2025-02-18 20:00',(select mno from messages where d_ecriture = '2025-02-18 19:00')),
+(2,1,'Il a raison','2025-02-18 21:00',(select mno from messages where d_ecriture = '2025-02-18 20:00'));

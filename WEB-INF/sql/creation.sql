@@ -1,51 +1,52 @@
-drop table if exists message, fil, inscription, administration, utilisateur CASCADE;
+drop table if exists messages, inscriptions, administrations, fils, utilisateurs CASCADE;
 
-DROP TABLE IF EXISTS Utilisateur, Fil, Message, Inscription;
-
-CREATE TABLE utilisateur(
+CREATE TABLE utilisateurs(
 	uno serial,
 	pseudo VARCHAR(20) UNIQUE NOT NULL,
 	nom text,
 	prenom text,
-	email text NOT NULL,
+	email text UNIQUE NOT NULL,
 	mdp text NOT NULL,
-	d_inscription TEXT NOT NULL,
-	CONSTRAINT pk_utilisateur PRIMARY KEY (uno)
+	d_inscription text NOT NULL,
+	d_naissance text,
+	CONSTRAINT pk_utilisateurs PRIMARY KEY (uno)
 );
 
-CREATE TABLE fil(
+CREATE TABLE fils(
 	fno serial,
 	titre VARCHAR(50) NOT NULL,
 	d_creation TEXT,
-	createur int,
-	CONSTRAINT pk_fil PRIMARY KEY (fno),
-	CONSTRAINT fk_utilisateur FOREIGN KEY (createur) REFERENCES utilisateur(uno)
+	uno_createur int,
+	CONSTRAINT pk_fils PRIMARY KEY (fno),
+	CONSTRAINT fk_utilisateurs FOREIGN KEY (uno_createur) REFERENCES utilisateurs(uno)
 );
 
-CREATE TABLE inscription(
+CREATE TABLE inscriptions(
 	uno int,
 	fno int,
 	CONSTRAINT pk_inscription PRIMARY KEY (uno, fno),
-	CONSTRAINT fk_utilisateur FOREIGN KEY (uno) REFERENCES utilisateur(uno) ON DELETE CASCADE,
-	CONSTRAINT fk_fil FOREIGN KEY (fno) REFERENCES fil(fno) ON DELETE CASCADE
+	CONSTRAINT fk_utilisateurs FOREIGN KEY (uno) REFERENCES utilisateurs(uno) ON DELETE CASCADE,
+	CONSTRAINT fk_fils FOREIGN KEY (fno) REFERENCES fils(fno) ON DELETE CASCADE
 );
 
-CREATE TABLE administration(
+CREATE TABLE administrations(
 	uno int,
 	fno int,
 	CONSTRAINT pk_administration PRIMARY KEY (uno, fno),
-	CONSTRAINT fk_utilisateur FOREIGN KEY (uno) REFERENCES utilisateur(uno) ON DELETE CASCADE,
-	CONSTRAINT fk_fil FOREIGN KEY (fno) REFERENCES fil(fno) ON DELETE CASCADE
+	CONSTRAINT fk_utilisateurs FOREIGN KEY (uno) REFERENCES utilisateurs(uno) ON DELETE CASCADE,
+	CONSTRAINT fk_fils FOREIGN KEY (fno) REFERENCES fils(fno) ON DELETE CASCADE
 );
 
-CREATE TABLE message(
+CREATE TABLE messages(
 	mno serial,
 	uno int,
 	fno int,
 	contenu text NOT NULL,
 	d_ecriture text,
+	mno_reponse int,
 	likes int,
 	CONSTRAINT pk_message PRIMARY KEY (mno),
-	CONSTRAINT fk_utilisateur FOREIGN KEY (uno) REFERENCES utilisateur(uno) ON DELETE CASCADE,
-    CONSTRAINT fk_fil FOREIGN KEY (fno) REFERENCES fil(fno) ON DELETE CASCADE
+	CONSTRAINT fk_utilisateurs FOREIGN KEY (uno) REFERENCES utilisateurs(uno) ON DELETE CASCADE,
+    CONSTRAINT fk_fils FOREIGN KEY (fno) REFERENCES fils(fno) ON DELETE CASCADE,
+    CONSTRAINT fk_reponse FOREIGN KEY (mno_reponse) REFERENCES messages(mno)
 );
