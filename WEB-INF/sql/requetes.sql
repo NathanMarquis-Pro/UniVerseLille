@@ -1,0 +1,1 @@
+select prenom,nom,contenu from message as m, utilisateur as u, fil as f where m.uno=u.uno and m.fno = f.fno and m.fno = 2;
