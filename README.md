@@ -30,4 +30,22 @@ Pour commencer la création d'UniVerseLille, un réseau social web pour l'Univer
 
 ## Entrées et fonctionnalités des contrôleurs
 
+- Créer un utilisateur (fait)
+- Supprimer un utilisateur (fait)
+- Se connecter en tant qu'utilisateur (methode isMdpCorrect dans le dao)
+- Afficher les informations d'un utilisateur (fait)
+- Pouvoir modifier les informations d'un utilisateur
+- Afficher les utilisateurs d'un fil (fait)
+
+- Créer un fil (fait)
+- Supprimer un fil (fait)
+- Afficher les fils disponibles pour un utilisateur (fait)
+- Modifier les informations d'un fil si admin
+
+- Créer un nouveau message
+- Afficher les messages d'un fil
+- Répondre à un message existant
+- Modifier un message ?
+- Mettre un like ou l'enlever
+
 ## Difficultés rencontrées et leurs solutions

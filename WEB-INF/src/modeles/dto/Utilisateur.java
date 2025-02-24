@@ -26,6 +26,9 @@ public class Utilisateur {
     public Utilisateur(int uno, String pseudo, String nom, String prenom, String email, String mdp, LocalDate d_inscription) {
         this(uno,pseudo,nom,prenom,email,mdp,d_inscription,null);
     }
+    public Utilisateur(String pseudo, String nom, String prenom, String email, String mdp, LocalDate d_inscription) {
+        this(-1,pseudo,nom,prenom,email,mdp,d_inscription,null);
+    }
 
     public Utilisateur() {
     }

@@ -19,13 +19,42 @@ public class UtilisateurDAOJdbc{
         try(Connection con = ds.getConnection()){
             String req = "INSERT into utilisateurs (pseudo, nom, prenom, email, mdp, d_inscription, d_naissance) values(?,?,?,?,?,?,?)";
             PreparedStatement p = con.prepareStatement(req);
-            p.setInt(1,utilisateur.getUno());
+            p.setString(1,utilisateur.getPseudo());
             p.setString(2,utilisateur.getNom());
             p.setString(3,utilisateur.getPrenom());
             p.setString(4,utilisateur.getEmail());
             p.setString(5,utilisateur.getMdp());
             p.setString(6,utilisateur.getD_inscription().toString());
-            p.setString(7,utilisateur.getD_naissance().toString());
+            if(utilisateur.getD_naissance()!=null){
+                p.setString(7,utilisateur.getD_naissance().toString());
+            }else {
+                p.setString(7,null);
+            }
+            p.executeUpdate();
+            return true;
+        }catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean deleteById(int uno){
+        try(Connection con = ds.getConnection()){
+            String req = "delete from utilisateurs where uno = ?";
+            PreparedStatement p = con.prepareStatement(req);
+            p.setInt(1,uno);
+            p.executeUpdate();
+            return true;
+        }catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
+    public boolean deleteByPseudo(String pseudo){
+        try(Connection con = ds.getConnection()){
+            String req = "delete from utilisateurs where pseudo = ?";
+            PreparedStatement p = con.prepareStatement(req);
+            p.setString(1,pseudo);
             p.executeUpdate();
             return true;
         }catch(ClassNotFoundException | SQLException e){
@@ -66,19 +95,21 @@ public class UtilisateurDAOJdbc{
         }
     }
 
-    public List<Utilisateur> findAllFromFil() {
+    public List<Utilisateur> findAllFromFil(int fno) {
         List<Utilisateur> utilisateurs = new ArrayList<>();
         try(Connection con = ds.getConnection()){
-            String req = "select uno, pseudo, nom, prenom, email, mdp, d_inscription, d_naissance" +
+            String req = "select u.uno, pseudo, nom, prenom, email, mdp, d_inscription, d_naissance " +
                     "from utilisateurs as u, inscriptions as i " +
                     "where u.uno = i.uno " +
-                    "and i.fno = 1;";
+                    "and i.fno = ?";
             PreparedStatement p = con.prepareStatement(req);
+            p.setInt(1,fno);
             ResultSet rs = p.executeQuery();
             while(rs.next()){
                 Utilisateur utilisateur = new Utilisateur(rs.getInt(1),rs.getString(2),rs.getString(3),
                         rs.getString(4),rs.getString(5),rs.getString(6),
-                        LocalDate.parse(rs.getString(7)),LocalDate.parse(rs.getString(8)));
+                        LocalDate.parse(rs.getString(7)));
+                if(rs.getString(8)!=null)utilisateur.setD_naissance(LocalDate.parse(rs.getString(8)));
                 utilisateurs.add(utilisateur);
             }
             return utilisateurs;

@@ -21,6 +21,10 @@ public class Message {
         this.likes = likes;
     }
 
+    public Message(int uno, int fno, String contenu, LocalDateTime d_ecriture, int reponse, int likes) {
+        this(-1,uno, fno, contenu, d_ecriture, reponse, likes);
+    }
+
     public Message() {
     }
 

@@ -15,6 +15,10 @@ public class Fil {
         this.uno_createur = uno_createur;
     }
 
+    public Fil(String titre, LocalDate d_creation, int uno_createur) {
+        this(-1,titre,d_creation,uno_createur);
+    }
+
     public int getFno() {
         return fno;
     }
