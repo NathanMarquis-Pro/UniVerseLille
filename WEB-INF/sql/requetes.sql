@@ -5,11 +5,10 @@ select pseudo, nom, prenom, email, d_inscription, d_naissance
 from utilisateurs
 where uno=1;
 
---Sélectionne tous les messages du fil n°2 et les ranges dans l'ordre des plus récents
+--Sélectionne tous les messages du fil n°2, et le nom de celui qui a ecrit ce message et les ranges dans l'ordre des plus récents
 select prenom,nom,contenu
-from messages as m, utilisateurs as u, fils as f
+from messages as m, utilisateurs as u
 where m.uno=u.uno
-and m.fno = f.fno
 and m.fno = 2
 Order by m.d_ecriture;
 

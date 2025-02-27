@@ -1,6 +1,7 @@
 package modeles.dto;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Message {
     private int mno;
@@ -10,6 +11,7 @@ public class Message {
     private LocalDateTime d_ecriture;
     private int reponse;
     private int likes;
+    public final static DateTimeFormatter CUSTOM_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     public Message(int mno, int uno, int fno, String contenu, LocalDateTime d_ecriture, int reponse, int likes) {
         this.mno = mno;

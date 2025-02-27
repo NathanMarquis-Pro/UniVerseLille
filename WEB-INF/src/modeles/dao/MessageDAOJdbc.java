@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,14 +20,17 @@ public class MessageDAOJdbc {
     }
     public boolean save(Message message) {
         try(Connection con = ds.getConnection()){
-            String req = "INSERT into messages (uno,fno,contenu,d_ecriture,mno_reponse,likes) values(?,?,?,?,?,?)";
+            String req = "";
+            if(message.getReponse()!=-1)
+            req = "INSERT into messages (uno,fno,contenu,d_ecriture,likes,mno_reponse) values(?,?,?,?,?,?)";
+            else req = "INSERT into messages (uno,fno,contenu,d_ecriture,likes) values(?,?,?,?,?)";
             PreparedStatement p = con.prepareStatement(req);
             p.setInt(1,message.getUno());
             p.setInt(2,message.getFno());
             p.setString(3,message.getContenu());
-            p.setString(4,message.getD_ecriture().toString());
-            p.setInt(5,message.getReponse());
-            p.setInt(6,0);
+            p.setString(4,message.getD_ecriture().format(Message.CUSTOM_FORMATTER));
+            p.setInt(5,0);
+            if(message.getReponse()!=-1) p.setInt(6,message.getReponse());
             p.executeUpdate();
             return true;
         }catch(ClassNotFoundException | SQLException e){
@@ -34,26 +38,54 @@ public class MessageDAOJdbc {
             return false;
         }
     }
+    public Message findById(int mno) {
+        try(Connection con = ds.getConnection()){
+            String req = "select mno, uno, fno, contenu, d_ecriture, mno_reponse, likes\n" +
+                    "from messages as m " +
+                    "where m.mno = ?\n";
+            PreparedStatement p = con.prepareStatement(req);
+            p.setInt(1,mno);
+            ResultSet rs = p.executeQuery();
+            rs.next();
+            return new Message(rs.getInt(1),rs.getInt(2), rs.getInt(3),
+                        rs.getString(4), LocalDateTime.parse(rs.getString(5), Message.CUSTOM_FORMATTER),
+                        rs.getInt(6),rs.getInt(7));
+        }catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
     public List<Message> findAllFromFil(int fno) {
         List<Message> messages = new ArrayList<>();
         try(Connection con = ds.getConnection()){
             String req = "select mno, uno, fno, contenu, d_ecriture, mno_reponse, likes\n" +
-                    "from messages as m, utilisateurs as u, fils as f\n" +
-                    "where m.uno=u.uno\n" +
-                    "and m.fno = f.fno\n" +
-                    "and m.fno = ?\n" +
+                    "from messages as m " +
+                    "where m.fno = ?\n" +
                     "Order by m.d_ecriture DESC;";
             PreparedStatement p = con.prepareStatement(req);
             p.setInt(1,fno);
             ResultSet rs = p.executeQuery();
             while(rs.next()){
-                Message mess = new Message();
+                Message mess = new Message(rs.getInt(1),rs.getInt(2), rs.getInt(3),
+                        rs.getString(4), LocalDateTime.parse(rs.getString(5), Message.CUSTOM_FORMATTER),
+                        rs.getInt(6),rs.getInt(7));
                 messages.add(mess);
             }
             return messages;
         }catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             return null;
+        }
+    }
+    public void modifierLike(Message m){
+        try(Connection con = ds.getConnection()){
+            String req = "update messages set likes = likes + ? where mno = ?";
+            PreparedStatement p = con.prepareStatement(req);
+            p.setInt(1,m.getLikes());
+            p.setInt(2,m.getMno());
+            p.executeUpdate();
+        }catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
         }
     }
 }

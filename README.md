@@ -44,8 +44,16 @@ Pour commencer la création d'UniVerseLille, un réseau social web pour l'Univer
 
 - Créer un nouveau message
 - Afficher les messages d'un fil
-- Répondre à un message existant
-- Modifier un message ?
+- Répondre à un message existant (se fait surtout dans créer un nouveau message)
 - Mettre un like ou l'enlever
+- Modifier un message ?
+
+Pour associer un message et sa réponse : associer avec une hashmap les messages
+Pour associer un message avec celui qui l'a écrit : associer les utilisateurs avec leur message
+
+Double hashmap ? Map<Utilisateur,Map<Message,Message>>
+Ou alors
+Stocker un utilisateur ou un pseudo dans chaque message, et trouver un moyen d'accéder aux dates.
+Ça donnerait : Map<Message, Message> avec un utilisateur dans chaque message
 
 ## Difficultés rencontrées et leurs solutions

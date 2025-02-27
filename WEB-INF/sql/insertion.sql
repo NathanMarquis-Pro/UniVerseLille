@@ -25,11 +25,11 @@ insert into administrations(fno,uno) values
 ((Select fno from fils where titre = 'Mariage de Mario'),(Select uno from utilisateurs where nom = 'TheHedgehog'));
 
 insert into messages(fno,uno,contenu,d_ecriture) values
-(1,1,'Bonjour','2025-02-14'),
-(1,2,'Ca va ?','2025-02-14'),
-(2,1,'Bonjour','2025-02-18 18:00'),
-(2,5,'Bon alors on fait quoi comme animation ? On peut kidnapper Peach ?','2025-02-18 19:00');
+(1,1,'Bonjour','2025-02-14 18:00:00'),
+(1,2,'Ca va ?','2025-02-14 18:00:01'),
+(2,1,'Bonjour','2025-02-18 18:00:00'),
+(2,5,'Bon alors on fait quoi comme animation ? On peut kidnapper Peach ?','2025-02-18 19:00:00');
 
 insert into messages(fno,uno,contenu,d_ecriture,mno_reponse) values
-(2,4,'Non, laisse la vivre wsh','2025-02-18 20:00',(select mno from messages where d_ecriture = '2025-02-18 19:00')),
-(2,1,'Il a raison','2025-02-18 21:00',(select mno from messages where d_ecriture = '2025-02-18 20:00'));
+(2,4,'Non, laisse la vivre wsh','2025-02-18 20:00:00',(select mno from messages where d_ecriture = '2025-02-18 19:00:00')),
+(2,1,'Il a raison','2025-02-18 21:00:00',(select mno from messages where d_ecriture = '2025-02-18 20:00:00'));
