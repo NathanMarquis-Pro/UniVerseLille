@@ -46,10 +46,13 @@ public class MessageDAOJdbc {
             PreparedStatement p = con.prepareStatement(req);
             p.setInt(1,mno);
             ResultSet rs = p.executeQuery();
-            rs.next();
-            return new Message(rs.getInt(1),rs.getInt(2), rs.getInt(3),
+            if(rs.next()){
+                return new Message(rs.getInt(1),rs.getInt(2), rs.getInt(3),
                         rs.getString(4), LocalDateTime.parse(rs.getString(5), Message.CUSTOM_FORMATTER),
                         rs.getInt(6),rs.getInt(7));
+            }
+            return null;
+
         }catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             return null;
