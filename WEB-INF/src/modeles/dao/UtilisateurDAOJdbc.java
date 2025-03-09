@@ -30,8 +30,7 @@ public class UtilisateurDAOJdbc{
             }else {
                 p.setString(7,null);
             }
-            p.executeUpdate();
-            return true;
+            return p.executeUpdate() != 0;
         }catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             return false;
@@ -43,8 +42,7 @@ public class UtilisateurDAOJdbc{
             String req = "delete from utilisateurs where uno = ?";
             PreparedStatement p = con.prepareStatement(req);
             p.setInt(1,uno);
-            p.executeUpdate();
-            return true;
+            return p.executeUpdate() != 0;
         }catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             return false;
@@ -55,8 +53,7 @@ public class UtilisateurDAOJdbc{
             String req = "delete from utilisateurs where pseudo = ?";
             PreparedStatement p = con.prepareStatement(req);
             p.setString(1,pseudo);
-            p.executeUpdate();
-            return true;
+            return p.executeUpdate() != 0;
         }catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             return false;
