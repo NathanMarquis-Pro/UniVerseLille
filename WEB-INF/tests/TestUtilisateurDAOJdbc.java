@@ -16,9 +16,9 @@ public class TestUtilisateurDAOJdbc {
     @Test
     public void should_know_if_a_password_is_correct(){
         UtilisateurDAOJdbc dao = new UtilisateurDAOJdbc();
-        assertTrue(dao.isMdpCorrect(1,"moi"));
-        assertFalse(dao.isMdpCorrect(1,"moii"));
-        assertTrue(dao.isMdpCorrect(3,"bernard"));
+        assertTrue(dao.isMdpCorrect("natgame","moi"));
+        assertFalse(dao.isMdpCorrect("natgame","moii"));
+        assertTrue(dao.isMdpCorrect("bernard","bernard"));
     }
 
     @Test

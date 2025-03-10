@@ -1,22 +1,36 @@
 package modeles.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Fil {
     private int fno;
     private String titre;
     private LocalDate d_creation;
     private int uno_createur;
+    private List<Message> messages;
 
     public Fil(int fno, String titre, LocalDate d_creation, int uno_createur) {
         this.fno = fno;
         this.titre = titre;
         this.d_creation = d_creation;
         this.uno_createur = uno_createur;
+        this.messages = new ArrayList<>();
     }
 
     public Fil(String titre, LocalDate d_creation, int uno_createur) {
         this(-1,titre,d_creation,uno_createur);
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 
     public int getFno() {

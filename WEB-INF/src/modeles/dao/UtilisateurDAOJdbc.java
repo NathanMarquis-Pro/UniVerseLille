@@ -60,11 +60,11 @@ public class UtilisateurDAOJdbc{
         }
     }
 
-    public boolean isMdpCorrect(int uno, String mdp){
+    public boolean isMdpCorrect(String pseudo, String mdp){
         try(Connection con = ds.getConnection()){
-            String req = "Select mdp from utilisateurs where uno = ?";
+            String req = "Select mdp from utilisateurs where pseudo = ?";
             PreparedStatement p = con.prepareStatement(req);
-            p.setInt(1,uno);
+            p.setString(1,pseudo);
             ResultSet rs = p.executeQuery();
             rs.next();
             return rs.getString(1).equals(mdp);
@@ -80,6 +80,23 @@ public class UtilisateurDAOJdbc{
             String req = "Select uno, pseudo, prenom, nom, email, mdp, d_inscription, d_naissance from utilisateurs where uno = ?";
             PreparedStatement p = con.prepareStatement(req);
             p.setInt(1,uno);
+            ResultSet rs = p.executeQuery();
+            rs.next();
+            utilisateur = new Utilisateur(rs.getInt(1),rs.getString(2),rs.getString(3),
+                    rs.getString(4),rs.getString(5),rs.getString(6),LocalDate.parse(rs.getString(7)));
+            if(rs.getString(8)!=null)utilisateur.setD_naissance(LocalDate.parse(rs.getString(8)));
+            return utilisateur;
+        }catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            return null;
+        }
+    }
+    public Utilisateur findByPseudo(String pseudo) {
+        Utilisateur utilisateur;
+        try(Connection con = ds.getConnection()){
+            String req = "Select uno, pseudo, prenom, nom, email, mdp, d_inscription, d_naissance from utilisateurs where pseudo = ?";
+            PreparedStatement p = con.prepareStatement(req);
+            p.setString(1,pseudo);
             ResultSet rs = p.executeQuery();
             rs.next();
             utilisateur = new Utilisateur(rs.getInt(1),rs.getString(2),rs.getString(3),

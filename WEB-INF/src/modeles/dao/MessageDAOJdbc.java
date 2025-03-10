@@ -31,8 +31,7 @@ public class MessageDAOJdbc {
             p.setString(4,message.getD_ecriture().format(Message.CUSTOM_FORMATTER));
             p.setInt(5,0);
             if(message.getReponse()!=-1) p.setInt(6,message.getReponse());
-            p.executeUpdate();
-            return true;
+            return p.executeUpdate() != 0;
         }catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             return false;

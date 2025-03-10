@@ -61,8 +61,7 @@ public class FilDAOJdbc {
             p.setString(1,fil.getTitre());
             p.setString(2,fil.getD_creation().toString());
             p.setInt(3,fil.getUno_createur());
-            p.executeUpdate();
-            return true;
+            return p.executeUpdate()!=0;
         }catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             return false;
@@ -74,8 +73,7 @@ public class FilDAOJdbc {
             String req = "delete from fils where fno = ?";
             PreparedStatement p = con.prepareStatement(req);
             p.setInt(1,fno);
-            p.executeUpdate();
-            return true;
+            return p.executeUpdate()!=0;
         }catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             return false;
