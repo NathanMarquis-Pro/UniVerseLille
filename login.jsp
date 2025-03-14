@@ -8,21 +8,30 @@
 <body>
 <h1>Bienvenue sur UniVerseLille !</h1>
 
+<h2>Connexion</h2>
 <%
     String tentative = request.getParameter("tentative");
     if(tentative!=null && Integer.parseInt(tentative)==1){
-        out.println("<h2>Mot de passe ou nom d'utilisateur incorrect</h2>");
+        out.println("<h4>Mot de passe ou nom d'utilisateur incorrect</h4>");
     }
 %>
 
 <form action="Connexion" method="post" >
+    <div>
     <label>Login
         <input name="login">
     </label>
+    </div>
+    <div>
     <label>Mot de passe
         <input name="mdp" type="password">
     </label>
-    <input type=submit>
+    </div>
+    <div>
+    <input type="submit" value="Se connecter">
+    </div>
 </form>
+
+<a href="signup.jsp">Créer un compte</a>
 </body>
 </html>
