@@ -19,19 +19,19 @@
 <form action="Inscription" method="post" >
     <div>
     <label>Login
-        <input name="login">
+        <input name="login" required>
     </label>
     </div>
 
     <div>
     <label>Nom
-            <input name="nom">
+            <input name="nom" required>
     </label>
     </div>
 
     <div>
     <label>Prénom
-            <input name="prenom">
+            <input name="prenom" required>
         </label>
     </div>
 
@@ -42,21 +42,21 @@
     </div>
     <div>
     <label>Adresse Mail
-            <input name="email">
+            <input name="email" required>
     </label>
     </div>
     <div>
     <label>Mot de passe
-        <input name="mdp" type="password">
+        <input name="mdp" type="password" required>
     </label>
     </div>
     <div>
     <label>Vérification mot de passe
-            <input name="mdpVerif" type="password">
+            <input name="mdpVerif" type="password" required>
     </label>
     </div>
     <div>
-    <input type="submit" value="Créer un compte">
+    <input type="submit" value="Créer un compte" required>
     </div>
 </form>
 

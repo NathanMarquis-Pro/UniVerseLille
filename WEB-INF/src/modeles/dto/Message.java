@@ -10,6 +10,7 @@ public class Message {
     private String contenu;
     private LocalDateTime d_ecriture;
     private int reponse;
+    private Message messageReponse;
     private int likes;
     public final static DateTimeFormatter CUSTOM_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -28,6 +29,14 @@ public class Message {
     }
 
     public Message() {
+    }
+
+    public Message getMessageReponse() {
+        return messageReponse;
+    }
+
+    public void setMessageReponse(Message messageReponse) {
+        this.messageReponse = messageReponse;
     }
 
     public int getMno() {

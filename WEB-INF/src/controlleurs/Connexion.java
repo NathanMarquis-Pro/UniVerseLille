@@ -25,7 +25,7 @@ public class Connexion extends HttpServlet {
         else if(dao.isMdpCorrect(login,mdp)){
             Utilisateur u = dao.findByPseudo(login);
             session.setAttribute("user",u);
-            res.sendRedirect("allMessages/");
+            res.sendRedirect("./");
         }
         else {
             res.sendRedirect("signin.jsp?tentative=1");

@@ -63,7 +63,7 @@ public class MessageDAOJdbc {
             String req = "select mno, uno, fno, contenu, d_ecriture, mno_reponse, likes\n" +
                     "from messages as m " +
                     "where m.fno = ?\n" +
-                    "Order by m.d_ecriture DESC;";
+                    "Order by m.d_ecriture ASC;";
             PreparedStatement p = con.prepareStatement(req);
             p.setInt(1,fno);
             ResultSet rs = p.executeQuery();
@@ -71,6 +71,9 @@ public class MessageDAOJdbc {
                 Message mess = new Message(rs.getInt(1),rs.getInt(2), rs.getInt(3),
                         rs.getString(4), LocalDateTime.parse(rs.getString(5), Message.CUSTOM_FORMATTER),
                         rs.getInt(6),rs.getInt(7));
+                if(mess.getReponse()!=0){
+                    mess.setMessageReponse(this.findById(mess.getReponse()));
+                }
                 messages.add(mess);
             }
             return messages;
