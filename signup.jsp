@@ -10,9 +10,9 @@
 
 <h2>Inscription</h2>
 <%
-    String tentative = request.getParameter("tentative");
-    if(tentative!=null && Integer.parseInt(tentative)==1){
-        out.println("<h3>Mot de passe ou nom d'utilisateur incorrect</h3>");
+    String tentative = (String) session.getAttribute("tentative");
+    if(tentative!=null){
+        out.println(tentative);
     }
 %>
 
@@ -60,6 +60,6 @@
     </div>
 </form>
 
-<a href="login.jsp">Connexion</a>
+<a href="signin.jsp">Connexion</a>
 </body>
 </html>
