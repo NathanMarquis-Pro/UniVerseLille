@@ -21,7 +21,7 @@ public class MessageDAOJdbc {
     public boolean save(Message message) {
         try(Connection con = ds.getConnection()){
             String req = "";
-            if(message.getReponse()!=-1)
+            if(message.getReponse()!=0)
             req = "INSERT into messages (uno,fno,contenu,d_ecriture,likes,mno_reponse) values(?,?,?,?,?,?)";
             else req = "INSERT into messages (uno,fno,contenu,d_ecriture,likes) values(?,?,?,?,?)";
             PreparedStatement p = con.prepareStatement(req);
@@ -30,7 +30,7 @@ public class MessageDAOJdbc {
             p.setString(3,message.getContenu());
             p.setString(4,message.getD_ecriture().format(Message.CUSTOM_FORMATTER));
             p.setInt(5,0);
-            if(message.getReponse()!=-1) p.setInt(6,message.getReponse());
+            if(message.getReponse()!=0) p.setInt(6,message.getReponse());
             return p.executeUpdate() != 0;
         }catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
@@ -39,19 +39,21 @@ public class MessageDAOJdbc {
     }
     public Message findById(int mno) {
         try(Connection con = ds.getConnection()){
-            String req = "select mno, uno, fno, contenu, d_ecriture, mno_reponse, likes\n" +
-                    "from messages as m " +
-                    "where m.mno = ?\n";
+            String req = "select mno, m.uno, pseudo, fno, contenu, d_ecriture, mno_reponse, likes\n" +
+                    "from messages as m, utilisateurs as u " +
+                    "where m.mno = ?\n" +
+                    "and m.uno = u.uno";
             PreparedStatement p = con.prepareStatement(req);
             p.setInt(1,mno);
             ResultSet rs = p.executeQuery();
             if(rs.next()){
-                return new Message(rs.getInt(1),rs.getInt(2), rs.getInt(3),
-                        rs.getString(4), LocalDateTime.parse(rs.getString(5), Message.CUSTOM_FORMATTER),
-                        rs.getInt(6),rs.getInt(7));
+                Message mess = new Message(rs.getInt(1),rs.getInt(2), rs.getInt(4),
+                        rs.getString(5), LocalDateTime.parse(rs.getString(6), Message.CUSTOM_FORMATTER),
+                        rs.getInt(7),rs.getInt(8));
+                mess.setPseudo(rs.getString(3));
+                return mess;
             }
             return null;
-
         }catch(ClassNotFoundException | SQLException e){
             System.out.println(e.getMessage());
             return null;
@@ -60,17 +62,19 @@ public class MessageDAOJdbc {
     public List<Message> findAllFromFil(int fno) {
         List<Message> messages = new ArrayList<>();
         try(Connection con = ds.getConnection()){
-            String req = "select mno, uno, fno, contenu, d_ecriture, mno_reponse, likes\n" +
-                    "from messages as m " +
+            String req = "select mno, m.uno, pseudo, fno, contenu, d_ecriture, mno_reponse, likes\n" +
+                    "from messages as m, utilisateurs as u " +
                     "where m.fno = ?\n" +
+                    "and m.uno = u.uno "+
                     "Order by m.d_ecriture ASC;";
             PreparedStatement p = con.prepareStatement(req);
             p.setInt(1,fno);
             ResultSet rs = p.executeQuery();
             while(rs.next()){
-                Message mess = new Message(rs.getInt(1),rs.getInt(2), rs.getInt(3),
-                        rs.getString(4), LocalDateTime.parse(rs.getString(5), Message.CUSTOM_FORMATTER),
-                        rs.getInt(6),rs.getInt(7));
+                Message mess = new Message(rs.getInt(1),rs.getInt(2), rs.getInt(4),
+                        rs.getString(5), LocalDateTime.parse(rs.getString(6), Message.CUSTOM_FORMATTER),
+                        rs.getInt(7),rs.getInt(8));
+                mess.setPseudo(rs.getString(3));
                 if(mess.getReponse()!=0){
                     mess.setMessageReponse(this.findById(mess.getReponse()));
                 }

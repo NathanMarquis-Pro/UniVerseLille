@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter;
 public class Message {
     private int mno;
     private int uno;
+    private String pseudo;
     private int fno;
     private String contenu;
     private LocalDateTime d_ecriture;
@@ -29,6 +30,14 @@ public class Message {
     }
 
     public Message() {
+    }
+
+    public String getPseudo() {
+        return pseudo;
+    }
+
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
     }
 
     public Message getMessageReponse() {
