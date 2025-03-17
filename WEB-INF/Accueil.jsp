@@ -23,13 +23,19 @@
     <%
     }
     %>
-    <a href="./?action=nouveauFil">
+    <div>
+        <form action="NouveauFil" method="post">
+            <label for="titreFil">Quel est le thème de votre discussion ?</label><br>
+            <input id="titreFil" name="titreFil" type="text" required><br><br>
+            <button type="submit">Créer</button>
+        </form>
+    </div>
 </section>
 <section class="messages">
     <%List<Message> messages = (List<Message>) request.getAttribute("messages");
-    int fno = 0;
-    if(messages!=null) {
-        fno = messages.get(0).getFno();
+    Integer fno = (Integer) request.getAttribute("fno");
+    if(fno==null)fno = 0;
+    if(messages!=null && !messages.isEmpty()) {
         for(Message m : messages){%>
         <div>
             <p>

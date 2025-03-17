@@ -33,7 +33,9 @@ public class Dispatcher extends HttpServlet {
                 try {
                     if(fnoString == null || fnoString.isEmpty()) throw new NumberFormatException();
                     int fno = Integer.parseInt(fnoString);
+                    if(fno == 0)throw new NumberFormatException();
                     MessageDAOJdbc daoMessage = new MessageDAOJdbc();
+                    req.setAttribute("fno",fno);
                     req.setAttribute("messages",daoMessage.findAllFromFil(fno));
                 }
                 catch (NumberFormatException e){
