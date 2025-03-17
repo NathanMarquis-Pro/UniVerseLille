@@ -23,6 +23,7 @@
     <%
     }
     %>
+    <a href="./?action=nouveauFil">
 </section>
 <section class="messages">
     <%List<Message> messages = (List<Message>) request.getAttribute("messages");
