@@ -30,7 +30,7 @@ public class ControleurRest extends HttpServlet {
         PrintWriter out = res.getWriter();
         Utilisateur u = (Utilisateur) req.getSession().getAttribute("user");
         if(u==null){
-            res.sendRedirect("../login.jsp");
+            res.sendRedirect("../signin.jsp");
             return;
         }
         String info = req.getPathInfo();

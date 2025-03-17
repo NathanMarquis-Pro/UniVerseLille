@@ -10,28 +10,28 @@
 
 <h2>Inscription</h2>
 <%
-    String tentative = request.getParameter("tentative");
-    if(tentative!=null && Integer.parseInt(tentative)==1){
-        out.println("<h3>Mot de passe ou nom d'utilisateur incorrect</h3>");
+    String tentative = (String) session.getAttribute("tentative");
+    if(tentative!=null){
+        out.println(tentative);
     }
 %>
 
 <form action="Inscription" method="post" >
     <div>
     <label>Login
-        <input name="login">
+        <input name="login" required>
     </label>
     </div>
 
     <div>
     <label>Nom
-            <input name="nom">
+            <input name="nom" required>
     </label>
     </div>
 
     <div>
     <label>Prénom
-            <input name="prenom">
+            <input name="prenom" required>
         </label>
     </div>
 
@@ -42,24 +42,24 @@
     </div>
     <div>
     <label>Adresse Mail
-            <input name="email">
+            <input name="email" required>
     </label>
     </div>
     <div>
     <label>Mot de passe
-        <input name="mdp" type="password">
+        <input name="mdp" type="password" required>
     </label>
     </div>
     <div>
     <label>Vérification mot de passe
-            <input name="mdpVerif" type="password">
+            <input name="mdpVerif" type="password" required>
     </label>
     </div>
     <div>
-    <input type="submit" value="Créer un compte">
+    <input type="submit" value="Créer un compte" required>
     </div>
 </form>
 
-<a href="login.jsp">Connexion</a>
+<a href="signin.jsp">Connexion</a>
 </body>
 </html>

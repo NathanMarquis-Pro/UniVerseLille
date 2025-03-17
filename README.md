@@ -42,10 +42,10 @@ Pour commencer la création d'UniVerseLille, un réseau social web pour l'Univer
 - Afficher les fils disponibles pour un utilisateur (fait)
 - Modifier les informations d'un fil si admin
 
-- Créer un nouveau message
-- Afficher les messages d'un fil
+- Créer un nouveau message (fait)
+- Afficher les messages d'un fil (fait)
 - Répondre à un message existant (se fait surtout dans créer un nouveau message)
-- Mettre un like ou l'enlever
+- Mettre un like ou l'enlever (fait)
 - Modifier un message ?
 
 Pour associer un message et sa réponse : associer avec une hashmap les messages

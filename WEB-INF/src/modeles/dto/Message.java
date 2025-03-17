@@ -6,10 +6,12 @@ import java.time.format.DateTimeFormatter;
 public class Message {
     private int mno;
     private int uno;
+    private String pseudo;
     private int fno;
     private String contenu;
     private LocalDateTime d_ecriture;
     private int reponse;
+    private Message messageReponse;
     private int likes;
     public final static DateTimeFormatter CUSTOM_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
@@ -28,6 +30,22 @@ public class Message {
     }
 
     public Message() {
+    }
+
+    public String getPseudo() {
+        return pseudo;
+    }
+
+    public void setPseudo(String pseudo) {
+        this.pseudo = pseudo;
+    }
+
+    public Message getMessageReponse() {
+        return messageReponse;
+    }
+
+    public void setMessageReponse(Message messageReponse) {
+        this.messageReponse = messageReponse;
     }
 
     public int getMno() {

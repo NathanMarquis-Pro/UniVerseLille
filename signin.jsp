@@ -19,12 +19,12 @@
 <form action="Connexion" method="post" >
     <div>
     <label>Login
-        <input name="login">
+        <input name="login" required>
     </label>
     </div>
     <div>
     <label>Mot de passe
-        <input name="mdp" type="password">
+        <input name="mdp" type="password" required>
     </label>
     </div>
     <div>

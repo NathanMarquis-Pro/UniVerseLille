@@ -11,7 +11,7 @@ public class TestMessageDAOJdbc {
     public void should_create_a_new_Message(){
         MessageDAOJdbc dao = new MessageDAOJdbc();
         Message m = new Message(1,2,"Test", LocalDateTime.parse(LocalDateTime.now().format(Message.CUSTOM_FORMATTER),Message.CUSTOM_FORMATTER),
-                -1,0);
+                0,0);
         dao.save(m);
         assertEquals(m.getContenu(),dao.findById(7).getContenu());
     }

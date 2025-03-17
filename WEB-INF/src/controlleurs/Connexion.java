@@ -20,17 +20,15 @@ public class Connexion extends HttpServlet {
         String mdp = req.getParameter("mdp");
         HttpSession session = req.getSession(true);
         if(mdp == null || login == null || login.isEmpty() || mdp.isEmpty()){
-            session.setAttribute("tentative",1);
-            res.sendRedirect("login.jsp?tentative=1");
+            res.sendRedirect("signin.jsp?tentative=1");
         }
         else if(dao.isMdpCorrect(login,mdp)){
             Utilisateur u = dao.findByPseudo(login);
             session.setAttribute("user",u);
-            res.sendRedirect("allMessages/");
+            res.sendRedirect("./");
         }
         else {
-            session.setAttribute("tentative",1);
-            res.sendRedirect("login.jsp?tentative=1");
+            res.sendRedirect("signin.jsp?tentative=1");
         }
     }
 }

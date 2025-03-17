@@ -42,6 +42,7 @@ CREATE TABLE messages(
 	uno int,
 	fno int,
 	contenu text NOT NULL,
+	imgPath text,
 	d_ecriture text,
 	mno_reponse int,
 	likes int,
