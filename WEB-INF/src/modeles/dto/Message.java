@@ -2,6 +2,7 @@ package modeles.dto;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 public class Message {
     private int mno;
@@ -14,6 +15,8 @@ public class Message {
     private Message messageReponse;
     private int likes;
     public final static DateTimeFormatter CUSTOM_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public final static DateTimeFormatter CUSTOM_FORMATTER2 = DateTimeFormatter.ofPattern("dd/MM/yy");
+    public final static DateTimeFormatter DATE_FORMATER_FULL = DateTimeFormatter.ofPattern("EEEE d MMMM yyyy HH:mm:ss", Locale.FRENCH);
 
     public Message(int mno, int uno, int fno, String contenu, LocalDateTime d_ecriture, int reponse, int likes) {
         this.mno = mno;
