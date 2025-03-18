@@ -22,7 +22,8 @@ insert into inscriptions(fno,uno) values
 insert into administrations(fno,uno) values
 ((Select fno from fils where titre = 'Jeux vidéo'),(Select uno from utilisateurs where nom = 'Marquis')),
 ((Select fno from fils where titre = 'Jeux vidéo'),(Select uno from utilisateurs where nom = 'Lisiak')),
-((Select fno from fils where titre = 'Mariage de Mario'),(Select uno from utilisateurs where nom = 'TheHedgehog'));
+((Select fno from fils where titre = 'Mariage de Mario'),(Select uno from utilisateurs where nom = 'TheHedgehog'))
+((Select fno from fils where titre = 'Mariage de Mario'),(Select uno from utilisateurs where nom = 'Marquis'));
 
 insert into messages(fno,uno,contenu,d_ecriture) values
 (1,1,'Bonjour','2025-02-14 18:00:00'),

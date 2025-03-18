@@ -79,4 +79,19 @@ public class FilDAOJdbc {
             return false;
         }
     }
+    public int findId(Fil fil){
+        try(Connection con = ds.getConnection()){
+            String req = "Select fno from fils where titre = ? and d_creation = ? and uno_createur = ?";
+            PreparedStatement p = con.prepareStatement(req);
+            p.setString(1,fil.getTitre());
+            p.setString(2,fil.getD_creation().toString());
+            p.setInt(3,fil.getUno_createur());
+            ResultSet rs = p.executeQuery();
+            rs.next();
+            return rs.getInt("fno");
+        }catch(ClassNotFoundException | SQLException e){
+            System.out.println(e.getMessage());
+            return 0;
+        }
+    }
 }

@@ -68,8 +68,8 @@
                         <label for="my-drawer-4" class="opacity-0 drawer-button btn btn-primary m-2">Participant</label>
                 <%}
             %>
-            
-            
+
+
         </div>
         <%Utilisateur u = (Utilisateur) session.getAttribute("user");%>
         <div class="flex h-full">
@@ -103,13 +103,13 @@
                         <button type="submit" class="btn btn-outline btn-primary">Créer</button>
                     </form>
                 </div>
-            
+
             </section>
             <section class="w-[80vw] flex flex-col overflow-x-hidden overflow-y-auto h-[80vh] p-4">
                 <%List<Message> messages = (List<Message>) request.getAttribute("messages");
                 Integer fno = (Integer) request.getAttribute("fno");
                 if(fno==null)fno = 0;
-                if(messages!=null && !messages.isEmpty()) {                
+                if(messages!=null && !messages.isEmpty()) {
                     for(Message m : messages){%>
                         <%
                             if(m.getUno() == u.getUno()){%>
@@ -161,19 +161,19 @@
                             <%}%>
                     <div class="fixed bottom-4 max-w-[calc(100vw-360px)] w-full">
                         <form class="flex items-center gap-2 w-full" action="NouveauMessage" method="post">
-                
+
                             <input type="hidden" name="fno" value="<%=fno%>">
-                
+
                             <button type="button" class="btn btn-circle border-2 border-primary" onclick="uploadFileModal.showModal()" >🞥</button>
-                
+
                             <textarea class="input flex-1 max-h-[200px] resize-none p-2 border-2 border-primary" id="message" name="message" required></textarea>
-                
+
                             <button class="btn btn-primary btn-circle" type="submit">⮞</button>
                         </form>
                     </div>
                 </div>
             </section>
-            
+
             <div class="absolute drawer drawer-end">
                 <input id="my-drawer-4" type="checkbox" class="drawer-toggle" />
                 <div class="drawer-content">
@@ -181,7 +181,7 @@
                 <div class="drawer-side">
                   <label for="my-drawer-4" aria-label="close sidebar" class="drawer-overlay"></label>
                   <section class="participants menu bg-base-100 text-base-content min-h-full w-fit p-4 pr-6">
-                    <h4 class="mx-auto mb-8 text-2xl font-bold">Participants</h4>                    
+                    <h4 class="mx-auto mb-8 text-2xl font-bold">Participants</h4>
                     <%if(fno!=0){
                         List<Utilisateur> utilisateurs = (List<Utilisateur>) request.getAttribute("participants");
                         for(Utilisateur participant : utilisateurs){%>
@@ -214,6 +214,6 @@
                 </div>
               </div>
         </div>
-        
+
     </body>
 </html>

@@ -8,6 +8,7 @@ import modeles.dao.MessageDAOJdbc;
 import modeles.dao.UtilisateurDAOJdbc;
 import modeles.dto.Message;
 import modeles.dto.Utilisateur;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,8 +29,12 @@ public class NouveauMessage extends HttpServlet{
             return;
         }
         chemin = "./";
-        String message = req.getParameter("message");
+        String message = StringEscapeUtils.escapeHtml4(req.getParameter("message"));
         int fno = Integer.parseInt(req.getParameter("fno"));
+        if(fno==0){
+            res.sendRedirect(chemin);
+            return;
+        }
         String reponseString = req.getParameter("reponse");
         int reponse = 0;
         if(reponseString!=null && !reponseString.isEmpty()){
@@ -40,14 +45,12 @@ public class NouveauMessage extends HttpServlet{
         String uploadPath = IMG_PATH+u.getPseudo();
         File uploadDir = new File(uploadPath);
         if(!uploadDir.exists()) uploadDir.mkdir();
-
         if((message!=null && !message.isEmpty())){
             Message m = new Message(u.getUno(),fno,message, LocalDateTime.now(),reponse,0);
             dao.save(m);
             //if(img!=null)img.write(uploadPath+"/"+getFileName(img));
         }
-        RequestDispatcher rd= req.getRequestDispatcher(chemin);
-        rd.forward(req,res);
+        res.sendRedirect(chemin+"?fno="+fno);
     }
     private String getFileName( Part part ) {
         for ( String content : part.getHeader( "content-disposition" ).split( ";" ) ) {
