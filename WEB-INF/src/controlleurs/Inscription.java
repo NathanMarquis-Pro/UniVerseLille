@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import modeles.dao.UtilisateurDAOJdbc;
 import modeles.dto.Utilisateur;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -19,13 +20,13 @@ public class Inscription extends HttpServlet {
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        String login = req.getParameter("login");
-        String nom = req.getParameter("nom");
-        String prenom = req.getParameter("prenom");
-        String dNaissance = req.getParameter("d_naissance");
-        String email = req.getParameter("email");
-        String mdpVerif = req.getParameter("mdpVerif");
-        String mdp = req.getParameter("mdp");
+        String login = StringEscapeUtils.escapeHtml4(req.getParameter("login"));
+        String nom = StringEscapeUtils.escapeHtml4(req.getParameter("nom"));
+        String prenom = StringEscapeUtils.escapeHtml4(req.getParameter("prenom"));
+        String dNaissance = StringEscapeUtils.escapeHtml4(req.getParameter("d_naissance"));
+        String email = StringEscapeUtils.escapeHtml4(req.getParameter("email"));
+        String mdpVerif = StringEscapeUtils.escapeHtml4(req.getParameter("mdpVerif"));
+        String mdp = StringEscapeUtils.escapeHtml4(req.getParameter("mdp"));
         HttpSession session = req.getSession(true);
         if(nom==null || prenom == null || email == null || mdpVerif==null || mdp == null || login == null
                 || nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || mdpVerif.isEmpty() || login.isEmpty() || mdp.isEmpty()

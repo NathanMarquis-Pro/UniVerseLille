@@ -6,13 +6,19 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import modeles.dao.FilDAOJdbc;
 import modeles.dao.MessageDAOJdbc;
+import modeles.dao.UtilisateurDAOJdbc;
+import modeles.dto.Fil;
 import modeles.dto.Utilisateur;
 
 import java.io.IOException;
 
 @WebServlet("/")
 public class Dispatcher extends HttpServlet {
+    FilDAOJdbc daoFil = new FilDAOJdbc();
+    MessageDAOJdbc daoMessage = new MessageDAOJdbc();
+    UtilisateurDAOJdbc daoUtilisateur = new UtilisateurDAOJdbc();
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String chemin = "";
@@ -26,17 +32,21 @@ public class Dispatcher extends HttpServlet {
         if(action==null) action = "";
         switch (action){
             case "modifierCompte" : chemin = "WEB-INF/MonCompte.jsp";break;
-            case "nouveauFil" : chemin = "WEB-INF/CreationFil.jsp";break;
+            case "deconnexion" :
+                chemin = "signin.jsp";
+                req.getSession().setAttribute("user",null);
+                break;
             case "modifierFil" : chemin = "WEB-INF/ModifierFil.jsp";break;
             default:
                 String fnoString = req.getParameter("fno");
+                req.setAttribute("fils",daoFil.findAllForUtilisateur(u.getUno()));
                 try {
                     if(fnoString == null || fnoString.isEmpty()) throw new NumberFormatException();
                     int fno = Integer.parseInt(fnoString);
                     if(fno == 0)throw new NumberFormatException();
-                    MessageDAOJdbc daoMessage = new MessageDAOJdbc();
                     req.setAttribute("fno",fno);
                     req.setAttribute("messages",daoMessage.findAllFromFil(fno));
+                    req.setAttribute("participants", daoUtilisateur.findAllFromFil(fno));
                 }
                 catch (NumberFormatException e){
                     req.setAttribute("messages",null);

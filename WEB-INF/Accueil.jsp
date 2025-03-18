@@ -11,14 +11,14 @@
     <title>Title</title>
 </head>
 <body>
-<%!FilDAOJdbc daoFil = new FilDAOJdbc();%>
 <%Utilisateur u = (Utilisateur) session.getAttribute("user");%>
+<a href="./?action=deconnexion">Déconnexion</a>
 <section class="fils">
     <%
-    List<Fil> fils = daoFil.findAllForUtilisateur(u.getUno());
+    List<Fil> fils = (List<Fil>) request.getAttribute("fils");
     for(Fil f : fils){ %>
       <div>
-          <a href="./?fno=<%=f.getFno()%>"> <%=f.getTitre()%>></a>
+          <a href="./?fno=<%=f.getFno()%>"> <%=f.getTitre()%></a>
       </div>
     <%
     }
@@ -68,6 +68,25 @@
             <button type="submit">Envoyer</button>
         </form>
     </div>
+</section>
+<section class="participants">
+    <%if(fno!=0){
+        List<Utilisateur> utilisateurs = (List<Utilisateur>) request.getAttribute("participants");
+        for(Utilisateur participant : utilisateurs){%>
+        <div>
+            <%=participant.getPseudo()%>
+        </div>
+        <%}%>
+    <div>
+            <form action="AjouterParticipant" method="post">
+                <input type="hidden" name="fno" value="<%=fno%>">
+                <label for="pseudoParticipant">Ajouter un participant :</label><br>
+                <input id="pseudoParticipant" name="pseudoParticipant" type="text" required><br><br>
+                <button type="submit">Ajouter</button>
+            </form>
+    </div>
+    <%}%>
+
 </section>
 </body>
 </html>

@@ -8,6 +8,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import modeles.dao.UtilisateurDAOJdbc;
 import modeles.dto.Utilisateur;
+import org.apache.commons.lang3.StringEscapeUtils;
 
 import java.io.IOException;
 @WebServlet("/Connexion")
@@ -16,8 +17,8 @@ public class Connexion extends HttpServlet {
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-        String login = req.getParameter("login");
-        String mdp = req.getParameter("mdp");
+        String login = StringEscapeUtils.escapeHtml4(req.getParameter("login"));
+        String mdp = StringEscapeUtils.escapeHtml4(req.getParameter("mdp"));
         HttpSession session = req.getSession(true);
         if(mdp == null || login == null || login.isEmpty() || mdp.isEmpty()){
             res.sendRedirect("signin.jsp?tentative=1");
