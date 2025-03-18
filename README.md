@@ -32,28 +32,19 @@ Pour commencer la création d'UniVerseLille, un réseau social web pour l'Univer
 
 - Créer un utilisateur (fait)
 - Supprimer un utilisateur (fait)
-- Se connecter en tant qu'utilisateur (methode isMdpCorrect dans le dao)
-- Afficher les informations d'un utilisateur (fait)
+- Se connecter en tant qu'utilisateur (fait)
+- Afficher les informations d'un utilisateur
 - Pouvoir modifier les informations d'un utilisateur
 - Afficher les utilisateurs d'un fil (fait)
 
 - Créer un fil (fait)
-- Supprimer un fil (fait)
+- Supprimer un fil
 - Afficher les fils disponibles pour un utilisateur (fait)
 - Modifier les informations d'un fil si admin
 
 - Créer un nouveau message (fait)
 - Afficher les messages d'un fil (fait)
-- Répondre à un message existant (se fait surtout dans créer un nouveau message)
-- Mettre un like ou l'enlever (fait)
-- Modifier un message ?
-
-Pour associer un message et sa réponse : associer avec une hashmap les messages
-Pour associer un message avec celui qui l'a écrit : associer les utilisateurs avec leur message
-
-Double hashmap ? Map<Utilisateur,Map<Message,Message>>
-Ou alors
-Stocker un utilisateur ou un pseudo dans chaque message, et trouver un moyen d'accéder aux dates.
-Ça donnerait : Map<Message, Message> avec un utilisateur dans chaque message
+- Répondre à un message existant
+- Mettre un like ou l'enlever
 
 ## Difficultés rencontrées et leurs solutions
