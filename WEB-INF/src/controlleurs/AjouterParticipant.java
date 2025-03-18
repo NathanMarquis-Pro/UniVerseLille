@@ -34,8 +34,7 @@ public class AjouterParticipant extends HttpServlet {
         String action = StringEscapeUtils.escapeHtml4(req.getParameter("action"));
         int fno = Integer.parseInt(req.getParameter("fno"));
         if(fno==0){
-            RequestDispatcher rd= req.getRequestDispatcher(chemin);
-            rd.forward(req,res);
+            res.sendRedirect(chemin);
             return;
         }
         if(daoAdministration.isAdmin(u.getUno(),fno)){
@@ -53,7 +52,6 @@ public class AjouterParticipant extends HttpServlet {
             }
 
         }
-        RequestDispatcher rd= req.getRequestDispatcher(chemin);
-        rd.forward(req,res);
+        res.sendRedirect(chemin+"?fno="+fno);
     }
 }

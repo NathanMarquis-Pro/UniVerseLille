@@ -44,7 +44,6 @@ public class NouveauFil extends HttpServlet {
                 daoAdministration.addAdminUtilisateurToFil(u.getUno(),f.getFno());
             }
         }
-        RequestDispatcher rd= req.getRequestDispatcher(chemin);
-        rd.forward(req,res);
+        res.sendRedirect(chemin);
     }
 }

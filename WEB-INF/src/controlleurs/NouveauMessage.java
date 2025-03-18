@@ -32,8 +32,7 @@ public class NouveauMessage extends HttpServlet{
         String message = StringEscapeUtils.escapeHtml4(req.getParameter("message"));
         int fno = Integer.parseInt(req.getParameter("fno"));
         if(fno==0){
-            RequestDispatcher rd= req.getRequestDispatcher(chemin);
-            rd.forward(req,res);
+            res.sendRedirect(chemin);
             return;
         }
         String reponseString = req.getParameter("reponse");
@@ -51,8 +50,7 @@ public class NouveauMessage extends HttpServlet{
             dao.save(m);
             //if(img!=null)img.write(uploadPath+"/"+getFileName(img));
         }
-        RequestDispatcher rd= req.getRequestDispatcher(chemin);
-        rd.forward(req,res);
+        res.sendRedirect(chemin+"?fno="+fno);
     }
     private String getFileName( Part part ) {
         for ( String content : part.getHeader( "content-disposition" ).split( ";" ) ) {
