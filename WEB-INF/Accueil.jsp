@@ -12,7 +12,7 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="npm/daisyui@5/theme/dark.css,npm/daisyui@5/theme/light.css" rel="stylesheet" type="text/css" />
-    <!-- JS uniquement pour la gestion du thème-->
+    <!-- JS uniquement pour la persistance du thème entre les pages -->
     <script>
         document.addEventListener("DOMContentLoaded", function () {
           const savedTheme = localStorage.getItem("theme") || "light";
@@ -30,7 +30,7 @@
       </script>
 </head>
 <body class="h-full w-full bg-base fixed">
-    <div class="w-full h-fit bg-base-300 flex justify-between">
+    <div class="w-full h-fit bg-base-200 flex justify-between">
         <div class="m-2">
             <label class="swap swap-rotate">
                 <input type="checkbox" class="theme-controller" value="dark" />
@@ -57,43 +57,67 @@
     </div>
 <%!FilDAOJdbc daoFil = new FilDAOJdbc();%>
 <%Utilisateur u = (Utilisateur) session.getAttribute("user");%>
-<div class="join">
-    <section class="fils">
+<div class="flex h-full">
+    <section class="fils w-[20vw] bg-base-300 px-2">
         <%
         List<Fil> fils = daoFil.findAllForUtilisateur(u.getUno());
         for(Fil f : fils){ %>
-          <div class="bg-red-300">
-              <a href="./?fno=<%=f.getFno()%>"> <%=f.getTitre()%>></a>
-          </div>
+            <a href="./?fno=<%=f.getFno()%>">
+                <%
+                    if(f.getFno() == Integer.parseInt(request.getParameter("fno"))){%>
+                        <div class="my-2 p-2 rounded-box bg-info text-info-content hover:bg-primary hover:text-primary-content">
+                    <%} else {%>
+                        <div class="my-2 p-2 rounded-box bg-base-100 hover:bg-primary hover:text-primary-content">
+                    <%}
+                %>
+                    <%=f.getTitre()%>
+                </div>
+            </a>
         <%
         }
         %>
         <a href="./?action=nouveauFil"></a>
     </section>
-    <section class="messages">
+    <section class="messages w-[80vw] bg-base-100 p-4">
+        
+        
         <%List<Message> messages = (List<Message>) request.getAttribute("messages");
         int fno = 0;
         if(messages!=null) {
             fno = messages.get(0).getFno();
             for(Message m : messages){%>
-            <div>
-                <p>
-                <%if(m.getReponse()!=0){
-                    Message mRep = m.getMessageReponse();%>
-                    <b> ==> <%=mRep.getPseudo()%></b> |
-                        <%=mRep.getContenu()%> |
-                    <em><%=mRep.getD_ecriture().format(Message.CUSTOM_FORMATTER)%></em>
-                    <br>
-                <%}%>
-                <b><%=m.getPseudo()%></b> |
-                    <%=m.getContenu()%> |
+                <%
+                    if(m.getUno() == u.getUno()){%>
+                        <div class="chat chat-end">
+                    <%} else {%>
+                        <div class="chat chat-start">
+                    <%}
+                %>
+           
+                <div class="chat-header">
+                    <b><%=m.getPseudo()%></b>
                     <em><%=m.getD_ecriture().format(Message.CUSTOM_FORMATTER)%></em>
-                    <div><%=m.getLikes()%> Likes</div>
-                </p>
+                </div>
+                <div class="chat-bubble">
+                    <%if(m.getReponse()!=0){
+                        Message mRep = m.getMessageReponse();%>
+                        <b> ==> <%=mRep.getPseudo()%></b> |
+                            <%=mRep.getContenu()%> |
+                        <em><%=mRep.getD_ecriture().format(Message.CUSTOM_FORMATTER)%></em>
+                        <br>
+                    <%}%>
+                    <%=m.getContenu()%>
+                </div>
+                <button class="btn btn-xs chat-footer m-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="size-[1.2em]"><path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" /></svg>
+                    <%=m.getLikes()%>
+                  </button>
             </div>
             <%}
         }%>
-        <div class="nouveau_message">
+
+
+        <div class="nouveau_message hidden">
             <form action="NouveauMessage" method="post">
     
                 <input type="hidden" name="fno" value="<%=fno%>">

@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link href="npm/daisyui@5/theme/dark.css,npm/daisyui@5/theme/light.css" rel="stylesheet" type="text/css" />  
-    <!-- JS uniquement pour la gestion du thème-->
+    <!-- JS uniquement pour la persistance du thème entre les pages -->
     <script>
       document.addEventListener("DOMContentLoaded", function () {
         const savedTheme = localStorage.getItem("theme") || "light";
@@ -22,7 +22,7 @@
           localStorage.setItem("theme", newTheme);
         });
       });
-    </script>  
+    </script>
   </head>
   <body class="h-full w-full bg-base-300 fixed">
     <div class="w-full h-10 flex justify-between">
