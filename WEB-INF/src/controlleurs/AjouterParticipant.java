@@ -31,6 +31,7 @@ public class AjouterParticipant extends HttpServlet {
         }
         chemin = "./";
         String pseudo = StringEscapeUtils.escapeHtml4(req.getParameter("pseudoParticipant"));
+        String action = StringEscapeUtils.escapeHtml4(req.getParameter("action"));
         int fno = Integer.parseInt(req.getParameter("fno"));
         if(fno==0){
             RequestDispatcher rd= req.getRequestDispatcher(chemin);
@@ -38,9 +39,18 @@ public class AjouterParticipant extends HttpServlet {
             return;
         }
         if(daoAdministration.isAdmin(u.getUno(),fno)){
-            if(pseudo!=null && !pseudo.isEmpty()){
-                daoInscription.addUtilisateurToFil(daoUtilisateur.findByPseudo(pseudo).getUno(),fno);
+            switch (action){
+                case "add" :
+                    if(pseudo!=null && !pseudo.isEmpty()){
+                        daoInscription.addUtilisateurToFil(daoUtilisateur.findByPseudo(pseudo).getUno(),fno);
+                    }
+                    break;
+                case "remove" :
+                    int uno = Integer.parseInt(StringEscapeUtils.escapeHtml4(req.getParameter("uno")));
+                    daoInscription.removeUtilisateurToFil(uno,fno);
+                    break;
             }
+
         }
         RequestDispatcher rd= req.getRequestDispatcher(chemin);
         rd.forward(req,res);

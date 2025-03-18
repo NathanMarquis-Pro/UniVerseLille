@@ -75,10 +75,17 @@
         for(Utilisateur participant : utilisateurs){%>
         <div>
             <%=participant.getPseudo()%>
+            <form action="AjouterParticipant" method = post>
+                <input type="hidden" name="action" value="remove">
+                <input type="hidden" name="fno" value="<%=fno%>">
+                <input type="hidden" name="uno" value="<%=participant.getUno()%>">
+                <button type="submit">Supprimer</button>
+            </form>
         </div>
         <%}%>
     <div>
             <form action="AjouterParticipant" method="post">
+                <input type="hidden" name="action" value="add">
                 <input type="hidden" name="fno" value="<%=fno%>">
                 <label for="pseudoParticipant">Ajouter un participant :</label><br>
                 <input id="pseudoParticipant" name="pseudoParticipant" type="text" required><br><br>
