@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import modeles.dao.FilDAOJdbc;
+import modeles.dao.InscriptionDAOJdbc;
 import modeles.dao.MessageDAOJdbc;
 import modeles.dao.UtilisateurDAOJdbc;
 import modeles.dto.Fil;
@@ -19,6 +20,7 @@ public class Dispatcher extends HttpServlet {
     FilDAOJdbc daoFil = new FilDAOJdbc();
     MessageDAOJdbc daoMessage = new MessageDAOJdbc();
     UtilisateurDAOJdbc daoUtilisateur = new UtilisateurDAOJdbc();
+    InscriptionDAOJdbc daoInscription = new InscriptionDAOJdbc();
     @Override
     public void service(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         String chemin = "";
@@ -44,9 +46,11 @@ public class Dispatcher extends HttpServlet {
                     if(fnoString == null || fnoString.isEmpty()) throw new NumberFormatException();
                     int fno = Integer.parseInt(fnoString);
                     if(fno == 0)throw new NumberFormatException();
-                    req.setAttribute("fno",fno);
-                    req.setAttribute("messages",daoMessage.findAllFromFil(fno));
-                    req.setAttribute("participants", daoUtilisateur.findAllFromFil(fno));
+                    if(daoInscription.isInscrit(u.getUno(),fno)){
+                        req.setAttribute("fno",fno);
+                        req.setAttribute("messages",daoMessage.findAllFromFil(fno));
+                        req.setAttribute("participants", daoUtilisateur.findAllFromFil(fno));
+                    }
                 }
                 catch (NumberFormatException e){
                     req.setAttribute("messages",null);

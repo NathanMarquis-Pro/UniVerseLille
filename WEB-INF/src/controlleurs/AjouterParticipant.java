@@ -47,7 +47,8 @@ public class AjouterParticipant extends HttpServlet {
                     break;
                 case "remove" :
                     int uno = Integer.parseInt(StringEscapeUtils.escapeHtml4(req.getParameter("uno")));
-                    daoInscription.removeUtilisateurToFil(uno,fno);
+                    daoInscription.removeUtilisateurFromFil(uno,fno);
+                    daoAdministration.removeAdminUtilisateurToFil(uno,fno);
                     break;
             }
 
