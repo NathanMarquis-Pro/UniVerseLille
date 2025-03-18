@@ -8,7 +8,7 @@ import modeles.dao.MessageDAOJdbc;
 import modeles.dao.UtilisateurDAOJdbc;
 import modeles.dto.Message;
 import modeles.dto.Utilisateur;
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.tomcat.jakartaee.commons.lang3.StringEscapeUtils;
 
 import java.io.File;
 import java.io.IOException;

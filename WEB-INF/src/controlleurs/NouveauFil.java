@@ -11,7 +11,7 @@ import modeles.dao.FilDAOJdbc;
 import modeles.dao.InscriptionDAOJdbc;
 import modeles.dto.Fil;
 import modeles.dto.Utilisateur;
-import org.apache.commons.lang3.StringEscapeUtils;
+import org.apache.tomcat.jakartaee.commons.lang3.StringEscapeUtils;
 
 import java.io.IOException;
 import java.time.LocalDate;
