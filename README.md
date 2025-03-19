@@ -29,7 +29,7 @@ Dans ce README, vous trouverez toute la procédure de création du projet, de la
 10. Executez la commande `javac -d classes -cp "lib/*:src" src/**/*.java`
 11. Allez dans le dossier bin de votre tomcat (`cd ../../../bin/`)
 12. Executez le script `./catalina.sh run`
-13. Ouvrez un navigateur et rendez-vous sur le lien [localhost:8080/UniVerseLille/](localhost:8080/UniVerseLille/)
+13. Ouvrez un navigateur et rendez-vous sur le lien [localhost:8080/UniVerseLille/](http://localhost:8080/UniVerseLille/)
 
 ## Description générale de l'application
 
