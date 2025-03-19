@@ -18,6 +18,11 @@ Dans ce README, vous trouverez toute la procédure de création du projet, de la
 
 ## Description générale de l'application
 
+UniVerseLille est une plateforme en ligne de messagerie instantanée, où vous pouvez créer un compte, 
+créer des fils de discussion, ajouter et supprimer des utilisateurs de ces fils et bien évidemment, envoyer des messages.
+Vous avez également le choix entre deux thèmes : clair ou sombre
+
+
 ## Modélisation de la base de donnée
 
 Pour commencer la création d'UniVerseLille, un réseau social web pour l'Université de Lille, nous avons mis en place un **modèle conceptuel de données (MCD)** :

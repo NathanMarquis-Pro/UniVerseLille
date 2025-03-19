@@ -13,7 +13,7 @@ public class DS {
 
     public DS(){
         DRIVER ="org.postgresql.Driver";
-        URL ="jdbc:postgresql://localhost:5433/but2";
+        URL ="jdbc:postgresql://psqlserv/but2";
         Utilisateur ="nathanmarquisetu";
         Mdp ="moi";
     }
