@@ -16,6 +16,21 @@ Dans ce README, vous trouverez toute la procédure de création du projet, de la
 - [Entrées et fonctionnalités des contrôleurs](#entrées-et-fonctionnalités-des-contrôleurs)
 - [Difficultés rencontrées et leurs solutions](#difficultés-rencontrées-et-leurs-solutions)
 
+## How to
+1. Télécharger l'archive [UniVerseLille](https://gitlab.univ-lille.fr/nathan.marquis.etu/S4.02.1/-/archive/main/S4.02.1-main.zip)
+2. Extraire l'archive dans un le dossier `webapps` d'un [tomcat](https://tomcat.apache.org/download-11.cgi) (tomcat>webapps>UniVerseLille)
+3. Dans un terminal, se rendre dans WEB-INF/sql (`cd WEB-INF/sql`)
+4. Se connecter à psql avec la commande `psql -U prenomnometu but2` en replaçant bien `prenomnometu` par votre prénom et nom suivi de etu
+5. Executez le script `\i insertion.sql` (Cela devrait également créer les tables)
+6. Quittez psql avec `\q`
+7. Allez dans le dossier WEB-INF/src/modeles/dao (`cd ../src/modeles/dao`)
+8. Ouvrez le fichier `DS.java` et replacez "prenomnometu" par votre prenom et nom suivis de etu (changer également l'URL si nécessaire)
+9. Allez dans le dossier WEB-INF (`cd ../../../`)
+10. Executez la commande `javac -d classes -cp "lib/*:src" src/**/*.java`
+11. Allez dans le dossier bin de votre tomcat (`cd ../../../bin/`)
+12. Executez le script `./catalina.sh run`
+13. Ouvrez un navigateur et rendez-vous sur le lien [localhost:8080/UniVerseLille/](localhost:8080/UniVerseLille/)
+
 ## Description générale de l'application
 
 UniVerseLille est une plateforme en ligne de messagerie instantanée, où vous pouvez créer un compte, 

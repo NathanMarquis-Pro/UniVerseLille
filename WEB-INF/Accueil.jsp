@@ -8,7 +8,7 @@
     <html lang="fr">
     <head>
         <meta charset="UTF-8">
-        <title>Title</title>
+        <title>UniVerseLille</title>
         <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
         <link href="npm/daisyui@5/theme/dark.css,npm/daisyui@5/theme/light.css" rel="stylesheet" type="text/css" />
@@ -159,7 +159,7 @@
                             <%} else {%>
                                 <div>
                             <%}%>
-                    <div class="fixed bottom-4 max-w-[calc(100vw-360px)] w-full">
+                    <div class="fixed bottom-4 max-w-[78vw] w-full">
                         <form class="flex items-center gap-2 w-full" action="NouveauMessage" method="post">
 
                             <input type="hidden" name="fno" value="<%=fno%>">

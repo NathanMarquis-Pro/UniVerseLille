@@ -13,8 +13,8 @@ public class DS {
 
     public DS(){
         DRIVER ="org.postgresql.Driver";
-        URL ="jdbc:postgresql://psqlserv/but2";
-        Utilisateur ="nathanmarquisetu";
+        URL ="jdbc:postgresql://localhost:5432/but2"; // <- Changer si : ordinateurs de l'établissements: "jdbc:postgresql://psqlserv/but2",machine personnelle "jdbc:postgresql://localhost:5432/but2"
+        Utilisateur ="prenomnometu"; // <- REMPLACEZ CETTE VALEUR
         Mdp ="moi";
     }
 
