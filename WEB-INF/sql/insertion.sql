@@ -2,7 +2,6 @@
 
 insert into utilisateurs(pseudo,prenom,nom,email,mdp,d_inscription) values
 ('natgame','Nathan','Marquis','nathan@mail','moi','2025-02-14'),
-('tyroine','Mathis','Lisiak','mathis@mail','moi','2025-02-15'),
 ('bernard','Bernard','Bernard','bernard@mail','bernard','1990-02-14'),
 ('Sonic','Sonic','TheHedgehog','sonic@mail','moi','2025-02-14'),
 ('Bowser','Bowser','Koopa','bowser@mail','moi','2025-02-14'),
@@ -13,7 +12,6 @@ insert into fils(titre,d_creation,uno_createur) values
 ('Mariage de Mario','2025-02-10',(Select uno from utilisateurs where nom = 'Bowser'));
 
 insert into inscriptions(fno,uno) values
-((Select fno from fils where titre = 'Jeux vidéo'),(Select uno from utilisateurs where nom = 'Lisiak')),
 ((Select fno from fils where titre = 'Jeux vidéo'),(Select uno from utilisateurs where nom = 'Marquis')),
 ((Select fno from fils where titre = 'Mariage de Mario'),(Select uno from utilisateurs where nom = 'TheHedgehog')),
 ((Select fno from fils where titre = 'Mariage de Mario'),(Select uno from utilisateurs where nom = 'Marquis')),
@@ -21,7 +19,6 @@ insert into inscriptions(fno,uno) values
 
 insert into administrations(fno,uno) values
 ((Select fno from fils where titre = 'Jeux vidéo'),(Select uno from utilisateurs where nom = 'Marquis')),
-((Select fno from fils where titre = 'Jeux vidéo'),(Select uno from utilisateurs where nom = 'Lisiak')),
 ((Select fno from fils where titre = 'Mariage de Mario'),(Select uno from utilisateurs where nom = 'TheHedgehog')),
 ((Select fno from fils where titre = 'Mariage de Mario'),(Select uno from utilisateurs where nom = 'Marquis'));
 
